@@ -15,9 +15,9 @@ describe("As a user I can delete a book from the system", () => {
       '1977-01-28',
       true,
       1
-    ).then((response) => {bookId = response});
+    ).then((response) => bookId = response);
 
-    cy.log(bookId)
+    cy.log(bookId);
 
 
     // cy.wait('@addBook').then((intercept) => {
