@@ -172,7 +172,7 @@ Cypress.Commands.add('addBookAPI', (
     }
   }).should((response) => {
     expect(response.status).to.eq(201);
-  }).then((response) => {response.body});
+  }).then((response) => response.body.output.id);
 })
 
 
