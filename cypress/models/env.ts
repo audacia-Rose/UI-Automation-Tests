@@ -6,5 +6,7 @@
     static readonly HomepageUrl = Cypress.env('HOMEPAGE_URL');
 
     // The base url of the api
-    static readonly BaseApiUrl = Cypress.env('BASE_API_URL')
+    static readonly BaseApiUrl = Cypress.env('BASE_API_URL');
+
+    static readonly FormUrl = Cypress.env('FORM_URL');
  }

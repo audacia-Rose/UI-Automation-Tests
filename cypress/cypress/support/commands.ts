@@ -7,8 +7,7 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
+
 
 import Env from '../../models/env';
 import BookSelectors from '../../models/selectors/book-selectors';
@@ -119,7 +118,7 @@ Cypress.Commands.add('editBook',
     if (newAvailableFrom !== null) {
       cy.get(BookSelectors.AvailableFrom).clear();
       cy.get(BookSelectors.AvailableFrom).type(newAvailableFrom);
-    }   
+    }
 
     /* Uncheck the ebook option and leave unchecked if false, or check the box if true */
     cy.get('[type = "checkbox"]').uncheck();
@@ -131,13 +130,15 @@ Cypress.Commands.add('editBook',
       cy.get(BookSelectors.BookGenreDropdown).click();
       cy.get(BookSelectors.BookGenreOption(`${newBookGenreId}`)).click();
     }
-    
+
     /* Save your updated details */
     cy.get(BookSelectors.UpdateButton).click();
 
   });
 
 Cypress.Commands.add('getBookId', () => {
+  /* extract url containing book ID and 
+     return the book ID as a string */
   cy.location().then((fullUrl) => {
     const pathName = fullUrl.pathname;
     const arr = pathName.split('/');
@@ -147,6 +148,7 @@ Cypress.Commands.add('getBookId', () => {
 });
 
 Cypress.Commands.add('addBookAPI', (
+  /* Add in all thbe book details we want */
   title: string,
   description: string,
   author: string,
@@ -155,6 +157,7 @@ Cypress.Commands.add('addBookAPI', (
   hasEBook: boolean,
   bookGenreId: number,
 ) => {
+  /* POST HTTP request to add new book with above parameters */
   cy.request({
     method: 'POST',
     url: `${Env.BaseApiUrl}book/Add`,
@@ -170,18 +173,28 @@ Cypress.Commands.add('addBookAPI', (
     auth: {
       bearer: '',
     }
+  /* Check that the status code is 201
+    Output the book ID */
   }).should((response) => {
     expect(response.status).to.eq(201);
   }).then((response) => response.body.output.id);
 })
 
-
-// then((response) => response.body.output.id)
-// cy.log(response.body.output.id);  
-// 'The Shining'
-// 'The spine-tingling story of a hotel caretaker driven to monstrous insanity by supernatural forces.'
-// 'Stephen King'
-// 1977
-// '1977-01-28'
-// true
-// 1
+Cypress.Commands.add('addBookCatAPI', (
+  genre: string
+) => {
+  cy.request({
+    method: 'POST',
+    url: `${Env.BaseApiUrl}BookCategory/Add`,
+    body: {
+      name: genre
+    },
+    auth: { 
+      bearer: '',
+    }
+    /* Check request succeeded */
+  }).should((response) => {
+    expect(response.status).to.eq(201);
+    /* Capture the new book category ID in a variable */
+  }).then((response) => response.body.output.id)
+})

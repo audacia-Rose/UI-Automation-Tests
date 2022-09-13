@@ -35,5 +35,9 @@ declare namespace Cypress {
             hasEBook: boolean,
             bookGenreId: number,
         ): Chainable<Element>;
+
+        addBookCatAPI(
+            genre: string
+        ): Chainable<Element>
     }
 }

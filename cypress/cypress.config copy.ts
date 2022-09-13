@@ -20,8 +20,6 @@ export default defineConfig({
   env: {
     USERNAME: 'username',
     PASSWORD: 'password',
-    HOMEPAGE_URL: 'https://audacia-training-automationtesting-ui.azurewebsites.net/',
-    BASE_API_URL: 'https://audacia-training-automationtesting-api.azurewebsites.net/',
     FORM_URL: 'https://forms.gridfox.com/BihNR6ATScLA',
   },
   fixturesFolder: false,
@@ -32,7 +30,7 @@ export default defineConfig({
       // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, import/extensions
       return require('./cypress/plugins/index.ts')(on, config);
     },
-    baseUrl: 'https://audacia-training-automationtesting-ui.azurewebsites.net/',
+    baseUrl: 'https://forms.gridfox.com/BihNR6ATScLA',
     experimentalModifyObstructiveThirdPartyCode: false,
     experimentalSessionAndOrigin: true,
   },
